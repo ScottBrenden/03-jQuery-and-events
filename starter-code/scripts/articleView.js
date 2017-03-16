@@ -29,7 +29,6 @@ articleView.handleAuthorFilter = function() {
         $('article').hide();
       });
       $('article[data-author="' + $(this).val() + '"]').fadeIn('slow');
-      // console.log($(this).val());
     } else {
       $('article').each(function(){
         $('article').show();
@@ -51,7 +50,6 @@ articleView.handleCategoryFilter = function() {
         $('article').hide();
       });
       $('article[data-category="' + $(this).val() + '"]').fadeIn('slow');
-      // console.log($(this).val());
     } else {
       $('article').each(function(){
         $('article').show();
@@ -70,6 +68,8 @@ articleView.handleMainNav = function () {
       2. Fade in the single .tab-content section that is
         associated with the .tab element's data-content attribute.
     */
+    $('.tab-content').hide();
+    $('#' + $(this).attr('data-content')).fadeIn('slow');
   });
   $('.main-nav .tab:first').click();
 };
@@ -85,9 +85,18 @@ articleView.setTeasers = function() {
 
     // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
   */
+  $('article').on('click', '.read-on', function(event){
+    event.preventDefault();
+    console.log($(this).parent());
+    $(this).parent().find('*').show();
+    $(this).hide();
+
+  })
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
